@@ -1,0 +1,8 @@
+//protoc --proto_path=$GOPATH/src --go_out=$GOPATH/src $GOPATH/src/github.com/lizebang/learning-proto3/pkg_c/file_c.proto
+syntax = "proto3";
+package pkg_b; // from pkg_b/file_b.proto, so package must be pkg_b
+
+// from pkg_b/file_b.proto
+message msg_a {
+    int32 field_a = 1;
+}

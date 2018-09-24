@@ -1,0 +1,61 @@
+// protoc --proto_path=$GOPATH/src --go_out=$GOPATH/src $GOPATH/src/github.com/lizebang/learning-proto3/pkg_a/file_a.proto
+syntax = "proto3";
+package pkg_a;
+
+message msg_a {
+    string field_a = 1;
+    int32 field_b = 2;
+    repeated int32 field_c = 3;
+}
+
+message msg_b {
+    reserved 1, 2, 11 to max;
+    reserved "field_b", "field_c";
+
+    string field_a = 3;
+    int32 field_d = 4;
+    repeated int32 field_e = 5;
+}
+
+message msg_c {
+    enum enum_a {
+        option allow_alias = true;
+
+        A = 0;
+        B = 1;
+        C = 1;
+    }
+
+    enum_a a = 1;
+}
+
+enum enum_b {
+    reserved 1, 11 to max; // It can't contain zero.
+    reserved "A";
+
+    B = 0;
+    C = 2;
+}
+
+message msg_d {
+    msg_c.enum_a field_a = 1;
+    enum_b field_b = 2;
+}
+
+message msg_e {
+    message msg_f {
+        int32 field_a = 1;
+    }
+
+    msg_f field_a = 1;
+}
+
+import "github.com/lizebang/learning-proto3/pkg_b/file_b.proto";
+import "github.com/lizebang/learning-proto3/pkg_c/file_c.proto";
+
+message msg_g {
+    msg_e field_a = 1;
+    msg_e.msg_f field_b = 2;
+    pkg_b.msg_a field_c = 3;
+    pkg_b.msg_a field_d = 4;
+}
